@@ -1,25 +1,40 @@
-// Manipulação do formulário de contato
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
+// Menu Mobile (Toggle)
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
     
-    // Simulação de envio
-    const nome = this.querySelector('input[type="text"]').value;
-    alert(`Obrigado, ${nome}! Sua mensagem sobre o Agro Sustentável foi enviada com sucesso.`);
-    
-    this.reset();
+    // Estilo básico para o menu mobile quando ativo
+    if(navLinks.style.display === 'flex') {
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '80px';
+        navLinks.style.left = '0';
+        navLinks.style.width = '100%';
+        navLinks.style.background = '#fff';
+        navLinks.style.padding = '20px';
+        navLinks.style.textAlign = 'center';
+    }
 });
 
-// Efeito de mudança no header ao rolar a página
-window.addEventListener('scroll', function() {
+// Efeito de Scroll no Header
+window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     if (window.scrollY > 50) {
         header.style.padding = '10px 0';
-        header.style.background = '#f9f9f9';
+        header.style.background = 'rgba(255, 255, 255, 0.95)';
     } else {
         header.style.padding = '20px 0';
         header.style.background = '#fff';
     }
 });
 
-// Log para confirmar que o sistema está rodando
-console.log("Agro Forte: Sistema de sustentabilidade carregado.");
+// Fechar menu ao clicar em um link (Mobile)
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        if(window.innerWidth <= 768) {
+            navLinks.style.display = 'none';
+        }
+    });
+});
