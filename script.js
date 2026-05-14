@@ -1,40 +1,42 @@
-// Menu Mobile (Toggle)
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+/* =========================================
+   GESTÃO DE DADOS EXPANDIDA
+   ========================================= */
 
-menuToggle.addEventListener('click', () => {
-    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+const dadosNeymar = {
+    biografia: {
+        nascimento: "05 de fevereiro de 1992",
+        local: "Mogi das Cruzes, São Paulo",
+        timeAtual: "Al-Hilal (Arábia Saudita)"
+    },
+    carreira: [
+        { periodo: "2009-2013", time: "Santos FC" },
+        { periodo: "2013-2017", time: "FC Barcelona" },
+        { periodo: "2017-2023", time: "Paris Saint-Germain" },
+        { periodo: "2023-Atualmente", time: "Al-Hilal" }
+    ],
+    titulos: [
+        "Libertadores 2011", "Champions League 2014/15", 
+        "Ouro Olímpico 2016", "Copa das Confederações 2013",
+        "Campeonatos Nacionais (Brasil, Espanha, França)"
+    ]
+};
+
+// Função para renderizar a nova seção de detalhes
+function renderDetalhes() {
+    const infoContainer = document.getElementById('info-detalhada');
     
-    // Estilo básico para o menu mobile quando ativo
-    if(navLinks.style.display === 'flex') {
-        navLinks.style.flexDirection = 'column';
-        navLinks.style.position = 'absolute';
-        navLinks.style.top = '80px';
-        navLinks.style.left = '0';
-        navLinks.style.width = '100%';
-        navLinks.style.background = '#fff';
-        navLinks.style.padding = '20px';
-        navLinks.style.textAlign = 'center';
-    }
-});
+    infoContainer.innerHTML = `
+        <div class="bio-card">
+            <h3>Bio</h3>
+            <p><strong>Nascido em:</strong> ${dadosNeymar.biografia.local}</p>
+            <p><strong>Data:</strong> ${dadosNeymar.biografia.nascimento}</p>
+            <p><strong>Clube Atual:</strong> ${dadosNeymar.biografia.timeAtual}</p>
+        </div>
+        <div class="titulos-card">
+            <h3>Principais Títulos</h3>
+            <ul>${dadosNeymar.titulos.map(t => `<li>🏆 ${t}</li>`).join('')}</ul>
+        </div>
+    `;
+}
 
-// Efeito de Scroll no Header
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.style.padding = '10px 0';
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-    } else {
-        header.style.padding = '20px 0';
-        header.style.background = '#fff';
-    }
-});
-
-// Fechar menu ao clicar em um link (Mobile)
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        if(window.innerWidth <= 768) {
-            navLinks.style.display = 'none';
-        }
-    });
-});
+// Chame renderDetalhes() dentro do window.onload
